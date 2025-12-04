@@ -1,39 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flatburger Restaurant Menu</title>
+   
+    
+     <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="menu-container">
+        <h1> Flatburger Restrant </h1>
+        
+        <div class="section">
+            <h2>Our Burgers</h2>
+            <ul id="burgerMenu" class="burger-list"></ul>
+        </div>
+        
+        <div class="section">
+            <h2>Featured Drink</h2>
+            <p id="featuredDrink">Loading...</p>
+        </div>
+        
+        <div class="controls">
+            <button onclick="addBurgerAndUpdate()">Add Flatburger</button>
+            <button onclick="changeDrinkAndUpdate()">Change Featured Drink</button>
+            <button onclick="displayCurrentState()">Show Current Menu</button>
+            <button onclick="testScopesInConsole()">Test Scopes in Console</button>
+        </div>
+        
+        <div id="output">Menu output will appear here</div>
+    </div>
 
-    <title>JavaScript Scope Lab</title>
-    <meta name="description" content="Introduction to Scope in JavaScript in the Learn.co curriculum">
-    <meta name="author" content="Flatiron School">
-
-    <link rel="stylesheet" href="node_modules/mocha/mocha.css">
-  </head>
-
-  <body>
-    <!-- <div> for Mocha to display test results. -->
-    <div id="mocha"></div>
-
-    <!-- Include Mocha and set it up for BDD-style testing. -->
-    <script src="node_modules/mocha/mocha.js"></script>
-    <script>mocha.setup('bdd');</script>
-
-    <!-- Include Chai as the matcher library. -->
-    <script src="node_modules/chai/chai.js"></script>
-
-    <!-- Include Sinon as the library for spies, stubs, and mocks. -->
-    <script src="node_modules/sinon/pkg/sinon.js"></script>
-
-    <!-- Include some test fixtures. -->
-    <script src="test/fixtures/testFixtures.js"></script>
-
-    <!-- Include the student's JavaScript file. -->
     <script src="index.js"></script>
-
-    <!-- Include the JavaScript file(s) containing the tests. -->
-    <script src="test/indexTest.js"></script>
-
-    <!-- Include Flatiron School's minified test runner to push results to Learn. -->
-    <script src="node_modules/learn-browser/learnBrowser.min.js"></script>
-  </body>
+    <script>
+        // html fnctns
+        function updateDisplay() {
+            // burger list updt
+            const burgerList = document.getElementById('burgerMenu');
+            burgerList.innerHTML = '';
+            burgers.forEach(burger => {
+                const li = document.createElement('li');
+                li.textContent = burger;
+                burgerList.appendChild(li);
+            });
+            
+            // featured drink updt
+            document.getElementById('featuredDrink').textContent = featuredDrink;
+        }
+        
+        function addBurgerAndUpdate() {
+            addBurger();
+            updateDisplay();
+            logToOutput('Added Flatburger to menu!');
+        }
+        
+        function changeDrinkAndUpdate() {
+            changeFeaturedDrink();
+            updateDisplay();
+            logToOutput('Changed featured drink to ' + featuredDrink);
+        }
+        
+        function displayCurrentState() {
+            logToOutput('=== Current Menu ===\n' +
+                       'Burgers: ' + burgers.join(', ') + '\n' +
+                       'Featured Drink: ' + featuredDrink + '\n' +
+                       '===================');
+        }
+        
+        function testScopesInConsole() {
+            console.log('=== Testing Variable Scopes ===');
+            console.log('Global variables accessible:', {
+                burgers: burgers,
+                featuredDrink: featuredDrink
+            });
+            
+         
+            
+            logToOutput('Check browser console for scope test results!');
+        }
+        
+        function logToOutput(message) {
+            const output = document.getElementById('output');
+            output.textContent = message + '\n' + output.textContent;
+        }
+        
+        // disp initializeing
+        updateDisplay();
+        logToOutput('Welcome to Flatburger Restaurant');
+    </script>
+</body>
 </html>
